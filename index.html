@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ENB &amp; ReShade Manager</title>
+<meta name="description" content="Swap between ENB, ReShade, SweetFX and FXAA setups without copying a single file by hand. Free, portable, one .exe.">
+<meta property="og:title" content="ENB &amp; ReShade Manager">
+<meta property="og:description" content="Swap between ENB, ReShade, SweetFX and FXAA setups without copying a single file by hand.">
+<meta property="og:image" content="https://volvaga0.github.io/ENB-ReShade-Manager/assets/manager.png">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23191919'/><text x='16' y='23' font-size='18' font-family='monospace' font-weight='700' fill='%2300c8c8' text-anchor='middle'>E</text></svg>">
+<style>
+:root{
+  --bg0:#131313; --bg1:#191919; --bg2:#1d1d1d; --bg3:#262626;
+  --line:#2e2e2e; --line2:#3d3d3d;
+  --t1:#f3f3f3; --t2:#c9c9c9; --t3:#8d8d8d;
+  --acc:#00c8c8; --acc-dim:rgba(0,200,200,.10); --acc-bd:rgba(0,200,200,.32);
+  --mono:'Consolas','SFMono-Regular',ui-monospace,Menlo,monospace;
+  --sans:'Segoe UI',system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--bg0); color:var(--t2);
+  font-family:var(--sans); font-size:16px; line-height:1.68;
+  -webkit-font-smoothing:antialiased;
+}
+/* faint teal wash behind the top of the page, same trick the app uses */
+body::before{
+  content:''; position:fixed; inset:0; pointer-events:none; z-index:0;
+  background:
+    radial-gradient(900px 460px at 50% -180px, rgba(0,200,200,.10), transparent 70%),
+    radial-gradient(700px 400px at 88% 8%, rgba(0,200,200,.05), transparent 70%);
+}
+.wrap{position:relative; z-index:1; width:100%; max-width:1000px; margin:0 auto; padding:0 22px}
+
+a{color:var(--acc); text-decoration:none}
+a:hover{text-decoration:underline}
+h1,h2,h3{color:var(--t1); line-height:1.25; margin:0}
+h2{font-size:1.45rem; letter-spacing:-.01em; margin:0 0 14px}
+h3{font-size:1.06rem; margin:0 0 8px}
+p{margin:0 0 16px}
+code{font-family:var(--mono); font-size:.87em; background:var(--bg3); border:1px solid var(--line);
+     border-radius:4px; padding:1px 5px; color:var(--t1)}
+
+/* ---------- top bar ---------- */
+.bar{position:sticky; top:0; z-index:20; background:rgba(19,19,19,.82);
+     backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
+     border-bottom:1px solid var(--line)}
+.bar .wrap{display:flex; align-items:center; gap:18px; height:52px}
+.mark{font-family:var(--mono); font-size:.8rem; font-weight:700; letter-spacing:.14em;
+      color:var(--t1); white-space:nowrap}
+.mark .amp{color:var(--acc)}
+.bar nav{margin-left:auto; display:flex; gap:20px; font-size:.86rem}
+.bar nav a{color:var(--t3)}
+.bar nav a:hover{color:var(--t1); text-decoration:none}
+
+/* ---------- hero ---------- */
+header{padding:76px 0 8px; text-align:center}
+h1{font-size:clamp(1.9rem,5.4vw,3.1rem); font-family:var(--mono); font-weight:700;
+   letter-spacing:.02em; margin-bottom:18px}
+h1 .amp{color:var(--acc)}
+h1 .light{color:var(--t3); font-weight:400}
+.lede{font-size:clamp(1rem,2.3vw,1.19rem); color:var(--t2); max-width:640px;
+      margin:0 auto 30px}
+.cta{display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin-bottom:16px}
+.btn{display:inline-block; padding:12px 24px; border-radius:7px; font-size:.95rem;
+     border:1px solid var(--line2); color:var(--t1); background:var(--bg3);
+     transition:background .15s,border-color .15s,color .15s}
+.btn:hover{background:#303030; text-decoration:none}
+.btn.primary{background:var(--acc-dim); border-color:var(--acc-bd); color:var(--acc); font-weight:600}
+.btn.primary:hover{background:rgba(0,200,200,.18)}
+.meta{font-family:var(--mono); font-size:.78rem; color:var(--t3); letter-spacing:.04em}
+.meta span{white-space:nowrap}
+.meta i{font-style:normal; color:#4a4a4a; padding:0 8px}
+
+/* ---------- shots ---------- */
+figure{margin:34px 0 0}
+figure img{display:block; width:100%; height:auto; border:1px solid var(--line2);
+           border-radius:9px; background:var(--bg1); box-shadow:0 22px 54px rgba(0,0,0,.55)}
+figcaption{font-size:.82rem; color:var(--t3); text-align:center; margin-top:11px}
+
+/* ---------- sections ---------- */
+section{padding:56px 0; border-top:1px solid var(--line); scroll-margin-top:60px}
+section:first-of-type{border-top:0}
+.kicker{font-family:var(--mono); font-size:.72rem; letter-spacing:.18em;
+        color:var(--acc); text-transform:uppercase; margin:0 0 10px}
+.block{margin-bottom:38px}
+.block:last-child{margin-bottom:0}
+.narrow{max-width:720px}
+
+/* ---------- steps ---------- */
+ol.steps{list-style:none; counter-reset:s; margin:0; padding:0}
+ol.steps li{counter-increment:s; position:relative; padding:0 0 20px 46px}
+ol.steps li::before{content:counter(s); position:absolute; left:0; top:1px;
+  width:28px; height:28px; border-radius:50%; border:1px solid var(--acc-bd);
+  background:var(--acc-dim); color:var(--acc);
+  font-family:var(--mono); font-size:.8rem; font-weight:700;
+  display:flex; align-items:center; justify-content:center}
+ol.steps b{color:var(--t1)}
+
+/* ---------- games ---------- */
+.games{display:flex; flex-wrap:wrap; gap:8px; margin:0 0 18px; padding:0; list-style:none}
+.games li{font-family:var(--mono); font-size:.78rem; color:var(--t2);
+          background:var(--bg2); border:1px solid var(--line); border-radius:20px;
+          padding:5px 13px}
+
+/* ---------- spec table ---------- */
+.spec{width:100%; border-collapse:collapse; font-size:.92rem}
+.spec td{padding:9px 0; border-bottom:1px solid var(--line); vertical-align:top}
+.spec td:first-child{font-family:var(--mono); font-size:.84rem; color:var(--t1);
+                     white-space:nowrap; padding-right:22px; width:1%}
+.spec tr:last-child td{border-bottom:0}
+
+/* ---------- faq ---------- */
+details{border-bottom:1px solid var(--line); padding:15px 0}
+details:first-of-type{border-top:1px solid var(--line)}
+summary{cursor:pointer; color:var(--t1); font-weight:600; list-style:none;
+        display:flex; align-items:flex-start; gap:11px}
+summary::-webkit-details-marker{display:none}
+summary::before{content:'+'; color:var(--acc); font-family:var(--mono); font-weight:700;
+                line-height:1.6; flex:none}
+details[open] summary::before{content:'−'}
+details p{margin:11px 0 0 25px; color:var(--t2)}
+details p:last-child{margin-bottom:0}
+
+/* ---------- callout ---------- */
+.note{border-left:2px solid var(--acc-bd); background:var(--acc-dim);
+      padding:14px 18px; border-radius:0 6px 6px 0; margin:0 0 16px}
+.note p{margin:0}
+
+footer{border-top:1px solid var(--line); padding:34px 0 56px; font-size:.86rem; color:var(--t3)}
+footer .wrap{display:flex; flex-wrap:wrap; gap:14px 26px; align-items:center}
+footer nav{margin-left:auto; display:flex; gap:20px; flex-wrap:wrap}
+
+@media (max-width:640px){
+  header{padding-top:46px}
+  section{padding:42px 0}
+  .btn{width:100%; text-align:center}
+  .meta i{display:block; height:0; overflow:hidden; padding:0}
+}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <div class="wrap">
+    <span class="mark">ENB <span class="amp">&amp;</span> RESHADE MANAGER</span>
+    <nav>
+      <a href="#what">What it does</a>
+      <a href="#start">Get started</a>
+      <a href="#faq">FAQ</a>
+      <a href="https://www.nexusmods.com/skyrimspecialedition/mods/4143">Nexus</a>
+    </nav>
+  </div>
+</div>
+
+<header>
+  <div class="wrap">
+    <h1>ENB <span class="amp">&amp;</span> ReShade <span class="light">Manager</span></h1>
+    <p class="lede">Swap between ENB, ReShade, SweetFX and FXAA setups without copying a single file by hand.</p>
+    <div class="cta">
+      <a class="btn primary" href="https://github.com/volvaga0/ENB-ReShade-Manager/releases/latest/download/ENB-and-ReShade-Manager.exe">Download for Windows</a>
+      <a class="btn" href="https://www.nexusmods.com/skyrimspecialedition/mods/4143">View on Nexus Mods</a>
+    </div>
+    <p class="meta">
+      <span>v6.2.1</span><i>·</i><span>2.4 MB</span><i>·</i><span>single .exe, no installer</span><i>·</i><span>free</span>
+    </p>
+
+    <figure>
+      <img src="assets/manager.png" alt="The manager window: saved config slots down the left, a live list of everything found in the game folder down the right.">
+      <figcaption>Saved setups on the left. What's actually in your game folder, right now, on the right.</figcaption>
+    </figure>
+  </div>
+</header>
+
+<section id="what">
+  <div class="wrap narrow">
+    <p class="kicker">The problem</p>
+    <h2>Presets leave a mess, and nobody remembers what it was</h2>
+    <p>Every graphics preset you install drops a pile of loose files into your game folder — a wrapper DLL, an <code>enbseries</code> folder, forty-odd <code>.fx</code> files, an <code>enblocal.ini</code> you spent an hour tuning. Trying a different preset means pulling all of that back out. Going back to the old one means remembering exactly what "all of that" was.</p>
+    <p>This app remembers for you. Save your current setup to a slot, load a different one, switch back whenever you like. It only ever touches files it knows about, that list is visible and editable, and it will not go near your saves, your mods, or anything else in the folder.</p>
+    <p>I wrote the first version in 2016 because I got sick of doing it by hand. It's been in development ever since, and it's past 240,000 unique downloads on Nexus.</p>
+  </div>
+</section>
+
+<section id="start">
+  <div class="wrap narrow">
+    <p class="kicker">Getting started</p>
+    <h2>Four steps, then you're done with it</h2>
+    <ol class="steps">
+      <li><b>Close the game.</b> Nothing here behaves properly with it running.</li>
+      <li><b>Run the .exe.</b> There's no install step. Put it wherever you like — Desktop, a tools folder, a USB stick.</li>
+      <li><b>Pick your game.</b> Steam installs are found for you. If yours isn't, point it at the folder yourself, or use <em>Add a game</em> for anything not on the list.</li>
+      <li><b>Save what you already have</b> before you change anything, so you have a way back.</li>
+    </ol>
+  </div>
+</section>
+
+<section>
+  <div class="wrap narrow">
+    <p class="kicker">Config slots</p>
+    <h2>A slot is your game folder, exactly as it was</h2>
+    <p>Every tracked file, in the place it sat. Save as many as you want, name them what you want, drag them into whatever order makes sense to you.</p>
+    <p>Loading a slot replaces what's installed. If you'd rather stack one on top of another — a preset plus a separate shader pack, say — the load prompt offers <b>Merge</b>, which drops the slot's files in without clearing what's already there.</p>
+    <p>Double-click a slot to load it. Right-click for the rest: open its folder in Explorer, duplicate it, export it as a <code>.zip</code>, overwrite it with your current setup, or delete it. Coloured spines down the side of each card tell you at a glance whether it's ENB, ReShade, SweetFX or FXAA.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap narrow">
+    <p class="kicker">Removal</p>
+    <h2>One button back to vanilla</h2>
+    <p>Strip every tracked ENB/ReShade/SweetFX/FXAA file out of the game folder in one go. Handy before installing something new, and handy when a preset misbehaves and you want a clean slate to test against.</p>
+    <p><b>Keep Core files</b> leaves the important binaries alone — the wrapper DLL, <code>d3dcompiler_46e.dll</code>, <code>enblocal.ini</code> — so you can clear out a preset's shaders and configs without reinstalling ENB itself afterwards. You decide what counts as core; right-click anything in the list to add or remove it.</p>
+    <div class="note">
+      <p>Whatever you had before a load or a removal is set aside automatically. <b>Reload previous setup</b> puts it straight back. It has saved me from my own mistakes more than once.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap narrow">
+    <p class="kicker">Detected files</p>
+    <h2>See what's in there, right now</h2>
+    <p>The right-hand panel is a live view of your game folder — type, size, last modified, updating as things change on disk. Folders expand in place, so you can dig through <code>enbseries\</code> or <code>reshade-shaders\Textures\</code> without leaving the app.</p>
+    <p>Select several at once with ctrl+click, shift+click or a drag, then right-click for bulk actions. A search box appears once the list is long enough to want one.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="narrow">
+      <p class="kicker">Editing</p>
+      <h2>Change settings without hunting through .ini files</h2>
+      <p><b>Quick Edit</b> reads your ENB and ReShade configs and gives you real controls for them — sliders, checkboxes, colour swatches, press-a-key boxes for shader hotkeys. It understands ENB's bare <code>r, g, b</code> colour convention, and drops back to a plain text field when a value goes past 1.0 so HDR settings don't get clamped behind your back. Ctrl+Z undoes the last change.</p>
+      <p><b>Raw text</b> mode is there for when you'd rather just edit the file, with Ctrl+F search over it. And <code>enblocal.ini</code> and <code>ReShade.ini</code> get their own per-game preset system, so your performance and memory settings survive swapping presets around.</p>
+    </div>
+    <figure>
+      <img src="assets/sidebar.png" alt="The app sidebar expanded, with the activity log panel open beside it.">
+      <figcaption>The sidebar, and the activity log — every message the app has shown you, kept.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section>
+  <div class="wrap narrow">
+    <p class="kicker">Drag and drop</p>
+    <h2>Drop files in, or teach it new ones</h2>
+    <p>Drag files or folders from anywhere on your PC onto the detected files panel and they're installed straight into the game folder, structure intact.</p>
+    <p>Drag files it <em>isn't</em> tracking onto the same panel and their names are added to the list — from then on it can save, load and remove them along with everything else. That's the fix for a preset that ships with unusually named files, and it's a one-time job per preset.</p>
+    <p>Archives are deliberately refused. Drag a <code>.zip</code>, <code>.rar</code> or <code>.7z</code> — or files straight out of one of those windows — and the app stops and tells you why, rather than dumping a folder's contents loose into your game directory. Extract first, then drop.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap narrow">
+    <p class="kicker">Sharing</p>
+    <h2>Export a setup that's safe to upload</h2>
+    <p><b>Export as .zip</b> packages a slot up for sending to someone else, and leaves ENB's redistributable binaries out on purpose — the wrapper DLL, <code>d3dcompiler_46e.dll</code>, <code>enbhost.exe</code> and <code>enbseries.dll</code>. Whoever opens it supplies those from ENBSeries themselves, same as always. <code>enbhelper.dll</code> is included, since that one is a community project meant to be passed around.</p>
+    <p>Separately, every distinct wrapper version the app sees gets quietly backed up under <b>Saved DLLs</b>. If you ever need an older ENB binary back, or you've lost track of which version a preset wanted, it's one click from being in the game folder again.</p>
+  </div>
+</section>
+
+<section id="games">
+  <div class="wrap">
+    <div class="narrow">
+      <p class="kicker">Games</p>
+      <h2>Sixteen out of the box, and anything else you point it at</h2>
+      <p>Steam installs for these are found automatically:</p>
+    </div>
+    <ul class="games">
+      <li>Skyrim</li><li>Skyrim Special Edition</li><li>Skyrim VR</li><li>Oblivion</li>
+      <li>Fallout 3</li><li>Fallout New Vegas</li><li>Fallout 4</li>
+      <li>The Witcher 2</li><li>The Witcher 3</li>
+      <li>GTA III</li><li>GTA Vice City</li><li>GTA San Andreas</li><li>GTA IV</li><li>GTA V</li>
+      <li>Deus Ex</li><li>Deus Ex: Human Revolution</li>
+    </ul>
+    <div class="narrow">
+      <p>Anything else, use <b>Add a game</b> and point it at the folder. It isn't fussy about what the game is — if ENB or ReShade run there, this will manage them.</p>
+    </div>
+    <figure>
+      <img src="assets/game-select.png" alt="The game picker, showing detected games as tiles plus an Add a game option.">
+      <figcaption>Pick a game, or add your own. It remembers your choice if you want it to.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section id="specs">
+  <div class="wrap narrow">
+    <p class="kicker">Requirements</p>
+    <h2>What you need</h2>
+    <table class="spec">
+      <tr><td>OS</td><td>Windows 10 or 11</td></tr>
+      <tr><td>Runtime</td><td><a href="https://dotnet.microsoft.com/download/dotnet-framework/net48">.NET Framework 4.8</a> — already on any up-to-date Windows 10 or 11</td></tr>
+      <tr><td>Runtime</td><td><a href="https://developer.microsoft.com/microsoft-edge/webview2/">Edge WebView2 Runtime</a> — ships with Windows 11 and current Windows 10. The app says so plainly if it's missing.</td></tr>
+      <tr><td>Install</td><td>None. One 2.4 MB <code>.exe</code>, run from anywhere.</td></tr>
+      <tr><td>Admin</td><td>Not needed, unless your game lives somewhere that needs it — <code>C:\Program Files</code>, say.</td></tr>
+      <tr><td>Your data</td><td>Kept in <code>%LocalAppData%\ENB ReShade Manager\Configs\</code> by default. You're asked on first run and can put it elsewhere.</td></tr>
+    </table>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="wrap narrow">
+    <p class="kicker">FAQ</p>
+    <h2>Questions that come up a lot</h2>
+
+    <details>
+      <summary>Some of my ENB files aren't being detected</summary>
+      <p>Some presets ship with custom filenames the app has never seen. Select those files in Explorer and drag them onto the detected files panel — their names get written to the list and they're tracked from then on. One-time job per preset, not something you repeat.</p>
+    </details>
+
+    <details>
+      <summary>Windows says it's from an unknown publisher</summary>
+      <p>The .exe isn't code-signed — certificates cost more per year than this project brings in. Click <em>More info</em> → <em>Run anyway</em>. If you'd rather not take my word for it, <a href="https://www.virustotal.com/">VirusTotal</a> will happily take the file.</p>
+    </details>
+
+    <details>
+      <summary>Will it touch my mods or my saves?</summary>
+      <p>No. It acts only on the filenames in its own list, only inside the game folder you selected. Mods, saves, load order, .esp files and everything else are outside what it looks at.</p>
+    </details>
+
+    <details>
+      <summary>Can I move my slots to another PC?</summary>
+      <p>Yes. Copy the configs folder across and point the app at it. They're ordinary folders full of ordinary files — nothing is in a database or a proprietary format.</p>
+    </details>
+
+    <details>
+      <summary>Does it need to stay installed?</summary>
+      <p>There's nothing to install and nothing running in the background. Delete the .exe and it's gone. <em>Uninstall</em> in the sidebar clears the registry entries and remembered paths if you want to be thorough — it doesn't touch your saved configs.</p>
+    </details>
+
+    <details>
+      <summary>Does it work with ReShade 6.x?</summary>
+      <p>Yes. Every shader in the 6.8.0 set has been put through the Quick Edit parser.</p>
+    </details>
+
+    <details>
+      <summary>Something broke. Where do I report it?</summary>
+      <p>The <a href="https://www.nexusmods.com/skyrimspecialedition/mods/4143">Nexus Mods page</a> is best — that's where the comment history lives and where I check most often. If the app crashed it writes a log; include that and I'll have a much better chance of fixing it quickly.</p>
+    </details>
+  </div>
+</section>
+
+<section>
+  <div class="wrap narrow" style="text-align:center">
+    <h2>Grab it</h2>
+    <p>Free, and staying that way.</p>
+    <div class="cta">
+      <a class="btn primary" href="https://github.com/volvaga0/ENB-ReShade-Manager/releases/latest/download/ENB-and-ReShade-Manager.exe">Download v6.2.1</a>
+      <a class="btn" href="https://github.com/volvaga0/ENB-ReShade-Manager/releases">All releases</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>Made by <a href="https://www.nexusmods.com/profile/volvaga0">volvaga0</a></span>
+    <nav>
+      <a href="https://www.nexusmods.com/skyrimspecialedition/mods/4143">Nexus Mods</a>
+      <a href="https://github.com/volvaga0/ENB-ReShade-Manager">GitHub</a>
+      <a href="https://github.com/volvaga0/ENB-ReShade-Manager/releases">Releases</a>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
