@@ -55,7 +55,7 @@ Folders expand in place, so you can dig down through `enbseries\`, `reshade-shad
 
 ### Editing configs without leaving the app
 
-![The sidebar and the activity log panel](assets/sidebar.png)
+![The sidebar and the activity log panel](assets/quickedits.png)
 
 **Quick Edit** reads your ENB and ReShade config files and gives you real controls for them — sliders, checkboxes, colour swatches, key-capture boxes for shader hotkeys. It understands ENB's bare `r, g, b` colour convention, and falls back to a plain text field when a value goes past 1.0 so HDR settings don't get clamped behind your back. Ctrl+Z undoes the last change.
 
