@@ -41,7 +41,11 @@ A slot is a snapshot of your game folder as it was — every tracked file, exact
 
 Loading a slot replaces what's currently installed. If you'd rather stack one on top of another — a preset plus a separate shader pack, say — the load prompt offers **Merge** instead, which drops the slot's files in without clearing what's already there.
 
-Double-click a slot to load it. Right-click for the rest: open its folder in Explorer, duplicate it, export it as a `.zip`, overwrite it with your current setup, or delete it.
+Double-click a slot to load it, or drag the card across onto the game folder panel and drop it there.
+
+![A slot card being dragged across the window, with the game folder panel highlighted and reading 'Drop slot here to load this config'](assets/dragdropload.png)
+
+Right-click for the rest: open its folder in Explorer, duplicate it, export it as a `.zip`, overwrite it with your current setup, or delete it.
 
 Coloured spines down the left of each card tell you at a glance what kind of setup it is — ENB, ReShade, SweetFX, FXAA.
 
@@ -72,6 +76,8 @@ Folders expand in place, so you can dig down through `enbseries\`, `reshade-shad
 ### Drag and drop
 
 Drag files or folders from anywhere on your PC onto the detected files panel and they're installed straight into the game folder, with their structure intact.
+
+![A file being dragged over the game folder panel, which is outlined and reading 'Drop files here to copy them to the game folder + Add to Files List'](assets/droptoaddfiles.png)
 
 Drag files that the app *isn't* currently tracking onto the same panel and their names get added to the list, so from then on it can save, load and remove them along with everything else. That's the fix for a preset that ships with unusually named files — see the FAQ below.
 

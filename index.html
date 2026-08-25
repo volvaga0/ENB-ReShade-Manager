@@ -228,7 +228,13 @@ footer nav{margin-left:auto; display:flex; gap:20px; flex-wrap:wrap}
     <h2>A slot is your game folder, exactly as it was</h2>
     <p>Every tracked file, in the place it sat. Save as many as you want, name them what you want, drag them into whatever order makes sense to you.</p>
     <p>Loading a slot replaces what's installed. If you'd rather stack one on top of another — a preset plus a separate shader pack, say — the load prompt offers <b>Merge</b>, which drops the slot's files in without clearing what's already there.</p>
-    <p>Double-click a slot to load it. Right-click for the rest: open its folder in Explorer, duplicate it, export it as a <code>.zip</code>, overwrite it with your current setup, or delete it. Coloured spines down the side of each card tell you at a glance whether it's ENB, ReShade, SweetFX or FXAA.</p>
+    <p>Double-click a slot to load it, or drag the card across onto the game folder panel and drop it there. Right-click for the rest: open its folder in Explorer, duplicate it, export it as a <code>.zip</code>, overwrite it with your current setup, or delete it. Coloured spines down the side of each card tell you at a glance whether it's ENB, ReShade, SweetFX or FXAA.</p>
+  </div>
+  <div class="wrap">
+    <figure>
+      <img src="assets/dragdropload.png" alt="A slot card being dragged across the window, with the game folder panel highlighted and reading 'Drop slot here to load this config'.">
+      <figcaption>Drag a slot across and the game folder panel becomes the drop target.</figcaption>
+    </figure>
   </div>
 </section>
 
@@ -277,6 +283,10 @@ footer nav{margin-left:auto; display:flex; gap:20px; flex-wrap:wrap}
       <p>Drag files it <em>isn't</em> tracking onto the same panel and their names are added to the list — from then on it can save, load and remove them along with everything else. That's the fix for a preset that ships with unusually named files, and it's a one-time job per preset.</p>
       <p>Archives are deliberately refused. Drag a <code>.zip</code>, <code>.rar</code> or <code>.7z</code> — or files straight out of one of those windows — and the app stops and tells you why, rather than dumping a folder's contents loose into your game directory. Extract first, then drop.</p>
     </div>
+    <figure>
+      <img src="assets/droptoaddfiles.png" alt="A file being dragged over the game folder panel, which is outlined and reading 'Drop files here to copy them to the game folder + Add to Files List'.">
+      <figcaption>Dropped files are copied into the game folder, and their names added to the list in one go.</figcaption>
+    </figure>
     <figure>
       <img src="assets/files-list.png" alt="The Files list panel, showing the tracked filenames the app manages, with Reset to default and Save buttons underneath.">
       <figcaption>The list those names get written into. Editable by hand too, from <b>Edit files list</b> in the sidebar.</figcaption>
