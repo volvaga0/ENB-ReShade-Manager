@@ -2,7 +2,7 @@
 
 **Swap between ENB, ReShade, SweetFX and FXAA setups without copying a single file by hand.**
 
-[**Download for Windows**](https://github.com/volvaga0/ENB-ReShade-Manager/releases/latest/download/ENB-and-ReShade-Manager.exe) · [Website](https://volvaga0.github.io/ENB-ReShade-Manager/) · [Nexus Mods page](https://www.nexusmods.com/skyrimspecialedition/mods/4143)
+[**Download for Windows**](https://github.com/volvaga0/ENB-ReShade-Manager/releases/latest/download/ENB-and-ReShade-Manager.exe) · [Website](https://volvaga0.github.io/ENB-ReShade-Manager/) · [Video](https://www.youtube.com/watch?v=2nGwc2H7A-8) · [Nexus Mods page](https://www.nexusmods.com/skyrimspecialedition/mods/4143)
 
 Version 6.2.1 · one 2.4 MB `.exe` · no installer, no dependencies to chase
 
@@ -17,6 +17,12 @@ Every graphics preset you install drops a pile of loose files into your game fol
 This app remembers for you. Save your current setup to a slot, load a different one, switch back whenever you like. It only ever touches files it knows about, that list is visible and editable, and it will not go near your saves, your mods or anything else in the folder.
 
 I wrote the first version in 2016 because I got sick of doing it by hand. It's been in development ever since, and it's past 240,000 unique downloads on Nexus.
+
+## See it running
+
+Fifteen seconds, which is quicker than reading this page:
+
+[![ENB &amp; ReShade Manager — fifteen seconds of it running](https://img.youtube.com/vi/2nGwc2H7A-8/maxresdefault.jpg)](https://www.youtube.com/watch?v=2nGwc2H7A-8)
 
 ## Getting started
 

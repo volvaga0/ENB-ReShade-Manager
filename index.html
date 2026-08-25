@@ -82,6 +82,12 @@ figure img{display:block; width:100%; height:auto; border:1px solid var(--line2)
            border-radius:9px; background:var(--bg1); box-shadow:0 22px 54px rgba(0,0,0,.55)}
 figcaption{font-size:.82rem; color:var(--t3); text-align:center; margin-top:11px}
 
+/* ---------- video ---------- */
+.video{position:relative; aspect-ratio:16/9; margin-top:28px; overflow:hidden;
+       border:1px solid var(--line2); border-radius:9px; background:var(--bg1);
+       box-shadow:0 22px 54px rgba(0,0,0,.55)}
+.video iframe{position:absolute; inset:0; width:100%; height:100%; border:0; display:block}
+
 /* ---------- sections ---------- */
 section{padding:56px 0; border-top:1px solid var(--line); scroll-margin-top:60px}
 section:first-of-type{border-top:0}
@@ -150,6 +156,7 @@ footer nav{margin-left:auto; display:flex; gap:20px; flex-wrap:wrap}
     <span class="mark">ENB <span class="amp">&amp;</span> RESHADE MANAGER</span>
     <nav>
       <a href="#what">What it does</a>
+      <a href="#video">Video</a>
       <a href="#start">Get started</a>
       <a href="#faq">FAQ</a>
       <a href="https://www.nexusmods.com/skyrimspecialedition/mods/4143">Nexus</a>
@@ -183,6 +190,22 @@ footer nav{margin-left:auto; display:flex; gap:20px; flex-wrap:wrap}
     <p>Every graphics preset you install drops a pile of loose files into your game folder — a wrapper DLL, an <code>enbseries</code> folder, forty-odd <code>.fx</code> files, an <code>enblocal.ini</code> you spent an hour tuning. Trying a different preset means pulling all of that back out. Going back to the old one means remembering exactly what "all of that" was.</p>
     <p>This app remembers for you. Save your current setup to a slot, load a different one, switch back whenever you like. It only ever touches files it knows about, that list is visible and editable, and it will not go near your saves, your mods, or anything else in the folder.</p>
     <p>I wrote the first version in 2016 because I got sick of doing it by hand. It's been in development ever since, and it's past 240,000 unique downloads on Nexus.</p>
+  </div>
+</section>
+
+<section id="video">
+  <div class="wrap">
+    <div class="narrow">
+      <p class="kicker">In motion</p>
+      <h2>Fifteen seconds of it running</h2>
+      <p>Quicker than reading this page.</p>
+    </div>
+    <div class="video">
+      <iframe src="https://www.youtube-nocookie.com/embed/2nGwc2H7A-8?rel=0"
+              title="ENB &amp; ReShade Manager" loading="lazy" allowfullscreen
+              referrerpolicy="strict-origin-when-cross-origin"
+              allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
+    </div>
   </div>
 </section>
 
@@ -362,6 +385,7 @@ footer nav{margin-left:auto; display:flex; gap:20px; flex-wrap:wrap}
     <span>Made by <a href="https://www.nexusmods.com/profile/volvaga0">volvaga0</a></span>
     <nav>
       <a href="https://www.nexusmods.com/skyrimspecialedition/mods/4143">Nexus Mods</a>
+      <a href="https://www.youtube.com/watch?v=2nGwc2H7A-8">YouTube</a>
       <a href="https://github.com/volvaga0/ENB-ReShade-Manager">GitHub</a>
       <a href="https://github.com/volvaga0/ENB-ReShade-Manager/releases">Releases</a>
     </nav>
