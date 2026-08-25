@@ -269,12 +269,18 @@ footer nav{margin-left:auto; display:flex; gap:20px; flex-wrap:wrap}
 </section>
 
 <section>
-  <div class="wrap narrow">
-    <p class="kicker">Drag and drop</p>
-    <h2>Drop files in, or teach it new ones</h2>
-    <p>Drag files or folders from anywhere on your PC onto the detected files panel and they're installed straight into the game folder, structure intact.</p>
-    <p>Drag files it <em>isn't</em> tracking onto the same panel and their names are added to the list — from then on it can save, load and remove them along with everything else. That's the fix for a preset that ships with unusually named files, and it's a one-time job per preset.</p>
-    <p>Archives are deliberately refused. Drag a <code>.zip</code>, <code>.rar</code> or <code>.7z</code> — or files straight out of one of those windows — and the app stops and tells you why, rather than dumping a folder's contents loose into your game directory. Extract first, then drop.</p>
+  <div class="wrap">
+    <div class="narrow">
+      <p class="kicker">Drag and drop</p>
+      <h2>Drop files in, or teach it new ones</h2>
+      <p>Drag files or folders from anywhere on your PC onto the detected files panel and they're installed straight into the game folder, structure intact.</p>
+      <p>Drag files it <em>isn't</em> tracking onto the same panel and their names are added to the list — from then on it can save, load and remove them along with everything else. That's the fix for a preset that ships with unusually named files, and it's a one-time job per preset.</p>
+      <p>Archives are deliberately refused. Drag a <code>.zip</code>, <code>.rar</code> or <code>.7z</code> — or files straight out of one of those windows — and the app stops and tells you why, rather than dumping a folder's contents loose into your game directory. Extract first, then drop.</p>
+    </div>
+    <figure>
+      <img src="assets/files-list.png" alt="The Files list panel, showing the tracked filenames the app manages, with Reset to default and Save buttons underneath.">
+      <figcaption>The list those names get written into. Editable by hand too, from <b>Edit files list</b> in the sidebar.</figcaption>
+    </figure>
   </div>
 </section>
 
@@ -284,6 +290,20 @@ footer nav{margin-left:auto; display:flex; gap:20px; flex-wrap:wrap}
     <h2>Export a setup that's safe to upload</h2>
     <p><b>Export as .zip</b> packages a slot up for sending to someone else, and leaves ENB's redistributable binaries out on purpose — the wrapper DLL, <code>d3dcompiler_46e.dll</code>, <code>enbhost.exe</code> and <code>enbseries.dll</code>. Whoever opens it supplies those from ENBSeries themselves, same as always. <code>enbhelper.dll</code> is included, since that one is a community project meant to be passed around.</p>
     <p>Separately, every distinct wrapper version the app sees gets quietly backed up under <b>Saved DLLs</b>. If you ever need an older ENB binary back, or you've lost track of which version a preset wanted, it's one click from being in the game folder again.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="narrow">
+      <p class="kicker">Activity log</p>
+      <h2>Nothing it tells you gets lost</h2>
+      <p>Every message the app has shown you, timestamped and kept newest first — so a toast that faded while you were alt-tabbed isn't gone for good. It's written to <code>ActionLog.txt</code> as plain text, capped at 500 entries, with a Clear log button when you want a fresh slate.</p>
+    </div>
+    <figure>
+      <img src="assets/activity-log.png" alt="The activity log panel open beside the expanded sidebar, listing timestamped messages newest first.">
+      <figcaption>The activity log, with the sidebar opened out beside it.</figcaption>
+    </figure>
   </div>
 </section>
 

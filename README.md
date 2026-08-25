@@ -77,6 +77,10 @@ Drag files that the app *isn't* currently tracking onto the same panel and their
 
 Archives are deliberately refused. Drag a `.zip`, `.rar` or `.7z` — or files straight out of one of those windows — and the app stops and tells you, rather than dumping a folder's contents loose into your game directory. Extract first, then drop.
 
+![The Files list panel, showing the tracked filenames the app manages](assets/files-list.png)
+
+That's the list those names get written into. You can edit it by hand as well, from **Edit files list** in the sidebar.
+
 ### Sharing a setup
 
 **Export as .zip** packages a slot up for sending to someone else. ENB's redistributable binaries are left out on purpose — the wrapper DLL, `d3dcompiler_46e.dll`, `enbhost.exe` and `enbseries.dll` — so what you end up with is safe to upload. Whoever opens it supplies those themselves from ENBSeries, same as everyone always has. `enbhelper.dll` is included, since that one is a community project meant to be redistributed.
@@ -87,7 +91,9 @@ Every distinct wrapper version the app sees gets quietly backed up. If you ever 
 
 ### Activity log
 
-Everything the app has told you, timestamped and kept, so a toast you missed while alt-tabbed isn't gone forever. It's written to `ActionLog.txt` in plain text and capped at 500 entries.
+Everything the app has told you, timestamped and kept, so a toast you missed while alt-tabbed isn't gone forever. It's written to `ActionLog.txt` in plain text and capped at 500 entries, with a Clear log button when you want a fresh slate.
+
+![The activity log panel open beside the expanded sidebar, listing timestamped messages newest first](assets/activity-log.png)
 
 ## Supported games
 
