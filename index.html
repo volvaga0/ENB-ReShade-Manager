@@ -95,7 +95,23 @@ section:first-of-type{border-top:0}
         color:var(--acc); text-transform:uppercase; margin:0 0 10px}
 .block{margin-bottom:38px}
 .block:last-child{margin-bottom:0}
-.narrow{max-width:720px}
+/* margin:auto matters as much as the max-width here. A section with no
+   picture writes it as <div class="wrap narrow">, so .narrow lands on the
+   same element as .wrap and inherits .wrap's own margin:0 auto -- centred.
+   A section WITH a picture nests it instead, <div class="wrap"><div
+   class="narrow">, and an inner block with only a max-width hugs the left
+   edge of its parent. That put the text of every illustrated section 111px
+   further left than every other section, five times down the page. Setting
+   the margins here makes both spellings centre identically. */
+.narrow{max-width:720px; margin-left:auto; margin-right:auto}
+/* ...and the two spellings still don't line up on max-width alone, because
+   the 22px gutter falls in a different place in each. On <div class="wrap
+   narrow"> the gutter is padding INSIDE the 720px box, leaving a 676px
+   column; nested, the 720px box sits inside the parent's already-padded
+   area, leaving the full 720px. Widening the combined case by both gutters
+   gives it a 720px content box too, so text starts on the same pixel either
+   way. Change one number here and the other has to follow. */
+.wrap.narrow{max-width:764px}
 
 /* ---------- steps ---------- */
 ol.steps{list-style:none; counter-reset:s; margin:0; padding:0}
