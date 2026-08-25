@@ -43,7 +43,7 @@ h2{font-size:1.45rem; letter-spacing:-.01em; margin:0 0 14px}
 h3{font-size:1.06rem; margin:0 0 8px}
 p{margin:0 0 16px}
 code{font-family:var(--mono); font-size:.87em; background:var(--bg3); border:1px solid var(--line);
-     border-radius:4px; padding:1px 5px; color:var(--t1)}
+     border-radius:4px; padding:1px 5px; color:var(--t1); overflow-wrap:anywhere}
 
 /* ---------- top bar ---------- */
 .bar{position:sticky; top:0; z-index:20; background:rgba(19,19,19,.82);
@@ -316,6 +316,7 @@ footer nav{margin-left:auto; display:flex; gap:20px; flex-wrap:wrap}
     <details>
       <summary>Windows says it's from an unknown publisher</summary>
       <p>The .exe isn't code-signed — certificates cost more per year than this project brings in. Click <em>More info</em> → <em>Run anyway</em>. If you'd rather not take my word for it, <a href="https://www.virustotal.com/">VirusTotal</a> will happily take the file.</p>
+      <p>To check you got the file I actually uploaded, the SHA-256 of v6.2.1 is <code>2F535146A7BBC76EF491E7CDB1214BE575D3E2C00688611A32D89A0756F0B119</code> — <code>Get-FileHash</code> in PowerShell will tell you.</p>
     </details>
 
     <details>

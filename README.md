@@ -128,6 +128,14 @@ Some presets ship with custom filenames the app has never seen. Select those fil
 
 The .exe isn't code-signed — certificates cost more per year than this hobby project brings in. Click *More info* → *Run anyway*. If you'd rather not take my word for it, [VirusTotal](https://www.virustotal.com/) will take the file.
 
+To check you got the file I actually uploaded, the SHA-256 of v6.2.1 is:
+
+```
+2F535146A7BBC76EF491E7CDB1214BE575D3E2C00688611A32D89A0756F0B119
+```
+
+In PowerShell: `Get-FileHash .\ENB-and-ReShade-Manager.exe`
+
 **Will it touch my mods or my saves?**
 
 No. It only acts on the filenames in `FILES.txt`, only inside the game folder you selected. Mods, saves, load order, `.esp`s and everything else are outside what it looks at.
