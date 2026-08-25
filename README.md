@@ -18,11 +18,11 @@ This app remembers for you. Save your current setup to a slot, load a different 
 
 I wrote the first version in 2016 because I got sick of doing it by hand. It's been in development ever since, and it's past 240,000 unique downloads on Nexus.
 
-## See it running
+## The one-minute version
 
-Fifteen seconds, which is quicker than reading this page:
+If you'd rather watch than read:
 
-[![ENB &amp; ReShade Manager — fifteen seconds of it running](https://img.youtube.com/vi/2nGwc2H7A-8/maxresdefault.jpg)](https://www.youtube.com/watch?v=2nGwc2H7A-8)
+[![ENB &amp; ReShade Manager — the one-minute version](https://img.youtube.com/vi/2nGwc2H7A-8/maxresdefault.jpg)](https://www.youtube.com/watch?v=2nGwc2H7A-8)
 
 ## Getting started
 
